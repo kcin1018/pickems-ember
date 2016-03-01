@@ -23,13 +23,19 @@
             {{#link-to 'rules' class="nav-item" tagName='li'}}
                 <a class="nav-link" href="#">What exactly is this?</a>
             {{/link-to}}
-            <li class="nav-item">
+            {{#link-to 'contact' class="nav-item" tagName='li'}}
                 <a class="nav-link" href="#">I have a question!</a>
-            </li>
+            {{/link-to}}
             {{/if}}
         </ul>
         <ul class="nav navbar-nav pull-xs-right">
             {{#if session.isAuthenticated}}
+            {{#link-to 'rules' class="nav-item" tagName='li'}}
+                <a class="nav-link" href="#">Rules</a>
+            {{/link-to}}
+            {{#link-to 'contact' class="nav-item" tagName='li'}}
+                <a class="nav-link" href="#">Contact</a>
+            {{/link-to}}
             <li class="nav-item">
                 <a class="nav-link" href="#">Admin</a>
             </li>
