@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('password-reset', { path: '/reset' });
   this.route('register');
   this.route('home');
+  this.route('rules');
 });
 
 export default Router;

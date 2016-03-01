@@ -2,13 +2,17 @@
     <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
         &#9776;
     </button>
-    <a class="navbar-brand" href="#">Pickems</a>
+    {{#if session.isAuthenticated}}
+    {{link-to 'Pickems' 'home' class="navbar-brand"}}
+    {{else}}
+    {{link-to 'Pickems' 'index' class="navbar-brand"}}
+    {{/if}}
     <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
         <ul class="nav navbar-nav">
             {{#if session.isAuthenticated}}
-            <li class="nav-item active">
+            {{#link-to 'home' class="nav-item" tagName='li'}}
                 <a class="nav-link" href="#">Home</a>
-            </li>
+            {{/link-to}}
             <li class="nav-item">
                 <a class="nav-link" href="#">Teams</a>
             </li>
@@ -16,10 +20,10 @@
                 <a class="nav-link" href="#">Stats</a>
             </li>
             {{else}}
-            <li class="nav-item active">
+            {{#link-to 'rules' class="nav-item" tagName='li'}}
                 <a class="nav-link" href="#">What exactly is this?</a>
-            </li>
-            <li class="nav-item active">
+            {{/link-to}}
+            <li class="nav-item">
                 <a class="nav-link" href="#">I have a question!</a>
             </li>
             {{/if}}
@@ -33,13 +37,12 @@
                 <a class="nav-link" href="#" {{action 'logout'}}>Logout</a>
             </li>
             {{else}}
-            <li class="nav-item">
+            {{#link-to 'login' class="nav-item" tagName='li'}}
                 <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
+            {{/link-to}}
+            {{#link-to 'register' class="nav-item" tagName='li'}}
                 <a class="nav-link" href="#">Register</a>
-            </li>
-
+            {{/link-to}}
             {{/if}}
         </ul>
     </div>
