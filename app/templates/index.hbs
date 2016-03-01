@@ -5,7 +5,9 @@
                 <h1 class="display-3">Fantasy Pickems</h1>
                 <p class="lead">Welcome to the fantasy pickems page. You can sign up to start playing.</p>
                 <p class="lead">
-                    <a href="#" class="card-link">{{fa-icon 'user-plus'}} Sign Up</a>
+                    {{#link-to 'rules' class="card-link"}}
+                        {{fa-icon 'user-plus'}} Sign Up
+                    {{/link-to}}
                 </p>
             </div>
             <div class="row">
@@ -32,7 +34,9 @@
                         </p>
 
                         <div class="card-block">
-                            <a href="#" class="card-link">{{fa-icon 'list-ul'}} Rules</a>
+                            {{#link-to 'rules' class="card-link"}}
+                                {{fa-icon 'list-ul'}} Rules
+                            {{/link-to}}
                         </div>
                     </div>
                 </div>
@@ -46,7 +50,9 @@
                         </p>
 
                         <div class="card-block">
-                            <a href="#" class="card-link">{{fa-icon 'envelope'}} Contact Us</a>
+                            {{#link-to 'contact' class="card-link"}}
+                                {{fa-icon 'envelope'}} Contact Us
+                            {{/link-to}}
                         </div>
                     </div>
                 </div>
