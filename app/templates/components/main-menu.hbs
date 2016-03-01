@@ -1,0 +1,46 @@
+<nav class="navbar navbar-light">
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+        &#9776;
+    </button>
+    <a class="navbar-brand" href="#">Pickems</a>
+    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+        <ul class="nav navbar-nav">
+            {{#if session.isAuthenticated}}
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Teams</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Stats</a>
+            </li>
+            {{else}}
+            <li class="nav-item active">
+                <a class="nav-link" href="#">What exactly is this?</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">I have a question!</a>
+            </li>
+            {{/if}}
+        </ul>
+        <ul class="nav navbar-nav pull-xs-right">
+            {{#if session.isAuthenticated}}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Admin</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" {{action 'logout'}}>Logout</a>
+            </li>
+            {{else}}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Register</a>
+            </li>
+
+            {{/if}}
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,16 @@
+@import 'variables';
+@import 'bower_components/bootstrap/scss/bootstrap';
+
+@import 'pages/login';
+@import 'pages/home';
+@import 'pages/register';
+
+@import 'components/main-menu';
+
+body {
+    background-color: darken($white, 5%);
+}
+
+.alert {
+    text-align: center;
+}

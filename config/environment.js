@@ -25,6 +25,11 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.api = {
+      host: 'http://localhost:8000',
+      namespace: 'api/v1',
+      authEndpoint: 'auth'
+    };
   }
 
   if (environment === 'test') {
@@ -37,6 +42,12 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+
+    ENV.api = {
+      host: 'http://localhost:8000',
+      namespace: 'api/v1',
+      authEndpoint: 'auth'
+    };
   }
 
   if (environment === 'production') {

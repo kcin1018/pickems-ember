@@ -1,0 +1,28 @@
+<div class="row register">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+        <h2 class="card-title text-xs-center">CREATE AN ACCOUNT</h2>
+        <hr/>
+
+        {{validated-input model=model valuePath='email' placeholder='Email'}}
+        <div class="row">
+            <div class="col-xs-6">
+                {{validated-input model=model valuePath='first_name' placeholder='First Name'}}
+            </div>
+            <div class="col-xs-6">
+                {{validated-input model=model valuePath='last_name' placeholder='Last Name'}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                {{validated-input type="password" model=model valuePath='password' placeholder='Password'}}
+            </div>
+            <div class="col-xs-6">
+                {{validated-input type="password" model=model valuePath='passwordConfirm' placeholder='Verify Password'}}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block" {{action 'createAccount'}} disabled={{if submitDisabled 'disabled'}}>{{submitText}}</button>
+        </div>
+    </div>
+</div>

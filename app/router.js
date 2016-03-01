@@ -6,6 +6,10 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('login');
+  this.route('password-reset', { path: '/reset' });
+  this.route('register');
+  this.route('home');
 });
 
 export default Router;
