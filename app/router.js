@@ -9,7 +9,7 @@ Router.map(function() {
   this.route('login');
   this.route('password-reset', { path: '/reset' });
   this.route('register');
-  this.route('home');
+  this.route('storyline');
   this.route('rules');
   this.route('contact');
 });

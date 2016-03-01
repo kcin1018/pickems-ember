@@ -6,7 +6,7 @@ export default Ember.Route.extend({
   session: service(),
   beforeModel() {
     if (this.get('session.isAuthenticated')) {
-      this.transitionTo('home');
+      this.transitionTo('storyline');
     }
   }
 });

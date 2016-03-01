@@ -3,15 +3,15 @@
         &#9776;
     </button>
     {{#if session.isAuthenticated}}
-    {{link-to 'Pickems' 'home' class="navbar-brand"}}
+    {{link-to 'Pickems' 'storyline' class="navbar-brand"}}
     {{else}}
     {{link-to 'Pickems' 'index' class="navbar-brand"}}
     {{/if}}
     <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
         <ul class="nav navbar-nav">
             {{#if session.isAuthenticated}}
-            {{#link-to 'home' class="nav-item" tagName='li'}}
-                <a class="nav-link" href="#">Home</a>
+            {{#link-to 'storyline' class="nav-item" tagName='li'}}
+                <a class="nav-link" href="#">Storylines</a>
             {{/link-to}}
             <li class="nav-item">
                 <a class="nav-link" href="#">Teams</a>
