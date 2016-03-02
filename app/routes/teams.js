@@ -3,6 +3,9 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   model() {
-    return this.store.findAll('team');
+    return Ember.RSVP.hash({
+      teams: this.store.findAll('team'),
+      users: this.store.findAll('user')
+    });
   }
 });

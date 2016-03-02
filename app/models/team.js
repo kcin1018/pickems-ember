@@ -19,5 +19,5 @@ export default DS.Model.extend(Validations, {
   name: attr('string'),
   paid: attr('boolean'),
 
-  user: belongsTo('user')
+  user: belongsTo('user', { async: true })
 });

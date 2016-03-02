@@ -9,7 +9,7 @@ export default function() {
   this.namespace = Config.api.namespace;
   this.timing = 100;
 
-  this.post(Config.api.authEndpoint, (db, request) => {
+  this.post(Config.api.authEndpoint, (schema, request) => {
     let params = { grant_type: null, username: null, password: null };
     if (!isEmpty(request.requestBody)) {
       request.requestBody.split('&').forEach(function(part) {
@@ -17,11 +17,12 @@ export default function() {
       });
     }
 
-    let user = db.users.where({ email: params.username });
+    let user = schema.user.where({ email: params.username });
     if (user.length) {
       return {
         access_token: '2389h87g54bg2893bg23b23gf23',
-        user_id: user[0].id
+        user_id: user[0].id,
+        admin: user[0].admin
       };
     } else {
       return new Mirage.Response(401, {}, {
@@ -31,7 +32,9 @@ export default function() {
   });
 
   this.post('/users');
+  this.get('/users');
   this.get('/users/:id');
+
   this.get('/teams', (schema, request) => {
     let { filter } = request.queryParams;
     if (filter) {
@@ -42,6 +45,9 @@ export default function() {
 
     return schema.team.all();
   });
+
+  this.patch('/teams/:id');
+  this.post('/teams');
 
   // These comments are here to help you get started. Feel free to delete them.
 

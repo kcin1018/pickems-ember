@@ -2,7 +2,8 @@ export default function(server) {
   server.create('user', {
     first_name: 'Nick',
     last_name: 'Felicelli',
-    email: 'nick.felicelli@gmail.com'
+    email: 'nick.felicelli@gmail.com',
+    admin: true
   });
 
   let users = server.createList('user', 5);

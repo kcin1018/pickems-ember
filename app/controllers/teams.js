@@ -1,35 +1,54 @@
 import Ember from 'ember';
 
-const { computed } = Ember;
+const { computed, inject } = Ember;
 
 export default Ember.Controller.extend({
+  flashMessages: inject.service(),
   sortProperties: ['name'],
-  sortedTeams: computed.sort('model', 'sortProperties'),
-  teams: computed('sortedTeams', {
+  sortedTeams: computed.sort('model.teams', 'sortProperties'),
+  users: computed.alias('model.users'),
+  teams: computed('sortedTeams', 'filter', {
     get() {
-      let teams = this.get('sortedTeams');
-      return teams.filter((team) => {
-        let filter = this.get('filter');
-        if (filter) {
-          return team.get('name').toLowerCase().includes(filter.toLowerCase());
-        }
+      let filter = this.get('filter');
 
-        return true;
-      });
+      // handle the filter if entered
+      if (filter) {
+        let teams = this.get('sortedTeams');
+
+        // filter all teams based on the them name and owner
+        return teams.filter((team) => {
+          filter = filter.toLowerCase();
+          return team.get('name').search(new RegExp(filter, 'i')) !== -1 || team.get('user.fullname').search(new RegExp(filter, 'i')) !== -1;
+        });
+      }
+
+      // return all teams if no filter
+      return this.get('sortedTeams');
     }
   }),
   filter: null,
   showCreateTeam: false,
   actions: {
-    filterTeams(filter) {
-      this.set('model', this.store.query('team', { filter: filter }));
-    },
     clearFilter() {
       this.set('filter', null);
-      this.send('filterTeams', null);
     },
     toggleCreateTeam() {
+      this.set('newTeam', {});
       this.toggleProperty('showCreateTeam');
+    },
+    markPaid(team) {
+      team.paid = true;
+      team.save().then(() => {
+        this.get('flashMessages').success(`Team '${team.get('name')}' marked as paid`);
+      });
+    },
+    createTeam() {
+      let newTeam = this.get('newTeam');
+      let team = this.store.createRecord('team', newTeam);
+      team.save().then(() => {
+        this.get('flashMessages').success(`Team '${team.get('name')}' created`);
+        this.send('toggleCreateTeam');
+      });
     }
   }
 });

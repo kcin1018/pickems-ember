@@ -1,0 +1,57 @@
+.teams {
+    .team {
+        padding: 1rem 1rem 0 1rem;
+        background-color: $white;
+        margin-bottom: 1rem;
+        border: 1px solid darken($white, 15%);
+
+        .name {
+            text-align: center;
+            font-size: 1.25rem;
+        }
+
+        .info {
+            .owner {
+                text-align: center;
+                font-size: 1rem;
+                color: darken($white, 35%);
+            }
+
+            .status {
+                color: $white;
+                padding: 0 15%;
+
+                .paid {
+                    padding: 0.5rem 0;
+                    background-color: $brand-success;
+                }
+
+                .not-paid {
+                    cursor: pointer;
+                    padding: 0.5rem 0;
+                    background-color: $brand-danger;
+                }
+            }
+        }
+
+        .points {
+            .heading {
+                font-weight: bold;
+                text-decoration: underline;
+            }
+
+            .number {
+                font-size: 1.25rem;
+            }
+
+            .rank {
+                font-size: 1rem;
+            }
+        }
+
+        .actions {
+            margin: 0 -1rem;
+            padding: 0.5rem 0 0.5rem 0;
+        }
+    }
+}
