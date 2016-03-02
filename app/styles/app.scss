@@ -1,11 +1,13 @@
 @import 'variables';
 @import 'bower_components/bootstrap/scss/bootstrap';
+@import "bower_components/font-awesome/scss/font-awesome";
 
 @import 'pages/login';
 @import 'pages/home';
 @import 'pages/register';
 @import 'pages/rules';
 @import 'pages/contact';
+@import 'pages/teams';
 
 @import 'components/main-menu';
 

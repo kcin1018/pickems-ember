@@ -30,24 +30,17 @@ export default function() {
     }
   });
 
-  this.post('/users', (db, request) => {
-    let data = JSON.parse(request.requestBody).data.attributes;
-    let user = db.users.insert(data);
-    let userId = user.id;
+  this.post('/users');
+  this.get('/users/:id');
+  this.get('/teams', (schema, request) => {
+    let { filter } = request.queryParams;
+    if (filter) {
+      return schema.team.all().filter((team) => {
+        return team.attrs.name.toLowerCase().includes(filter.toLowerCase());
+      });
+    }
 
-    // remove the not needed data for attributes
-    delete user.password;
-    delete user.id;
-
-    user.username = user.email.split('@')[0];
-
-    return {
-      data: {
-        type: 'users',
-        id: userId,
-        attributes: user
-      }
-    };
+    return schema.team.all();
   });
 
   // These comments are here to help you get started. Feel free to delete them.

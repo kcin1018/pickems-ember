@@ -35,7 +35,7 @@ export default Ember.Controller.extend(Validations, {
       this.get('flashMessages').clearMessages();
 
       // do validation before making authentication attempt
-      let { m, validations } = this.validateSync();
+      let { validations } = this.validateSync();
       if (!validations.get('isValid')) {
         this.get('flashMessages').danger('Please enter an email and password to sign in');
         return;

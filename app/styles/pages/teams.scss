@@ -1,0 +1,59 @@
+.teams {
+    padding-top: 1rem;
+
+    .clear-filter {
+        cursor: pointer;
+    }
+
+    .team {
+        padding: 1rem;
+        background-color: $white;
+        border: 1px solid darken($white, 15%);
+        margin-bottom: 1rem;
+
+        .name {
+            font-size: 1.5rem;
+        }
+
+        .owner {
+            font-size: 0.95rem;
+            color: darken($white, 25%);
+        }
+
+        .circle {
+            text-align: center;
+            margin-right: 0.5rem;
+            float: left;
+            border: 2px solid darken($brand-info, 25%);
+            color: darken($brand-info, 25%);
+            border-radius: 50%;
+            width: 45px;
+            padding: 0.35rem 0.5rem 0 0.5rem;
+
+            &.paid {
+                color: darken($brand-success, 5%);
+                border: 2px solid darken($brand-success, 5%);
+            }
+
+            &.not-paid {
+                color: darken($brand-danger, 5%);
+                border: 2px solid darken($brand-danger, 5%);
+            }
+
+            .sub-text {
+                text-align: center;
+                margin-top: -0.35rem;
+                padding-bottom: 0.35rem;
+                font-size: 0.5rem;
+            }
+        }
+
+        .actions {
+            text-align: center;
+
+            .card-link {
+                padding: 0.6rem;
+            }
+        }
+    }
+}
