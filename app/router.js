@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('rules');
   this.route('contact');
   this.route('teams');
+  this.route('picks', { path: '/picks/:team' });
 });
 
 export default Router;

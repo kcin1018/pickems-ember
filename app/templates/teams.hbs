@@ -23,6 +23,7 @@
                         {{/if}}
 
                         <button class="btn btn-primary" {{action 'createTeam'}}>Create Team</button>
+                        <button class="btn btn-secondary" {{action 'toggleCreateTeam'}}>Cancel</button>
                     </form>
                 </div>
             </div>
@@ -44,7 +45,7 @@
     </div>
     <div class="row">
         {{#each teams as |team|}}
-        {{team-card team=team markPaid='markPaid' removeTeam='removeTeam'}}
+        {{team-card team=team users=users markPaid='markPaid' removeTeam='removeTeam'}}
         {{/each}}
     </div>
 </div>
