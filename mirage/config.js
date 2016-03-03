@@ -46,8 +46,9 @@ export default function() {
     return schema.team.all();
   });
 
-  this.patch('/teams/:id');
   this.post('/teams');
+  this.patch('/teams/:id');
+  this.delete('/teams/:id');
 
   // These comments are here to help you get started. Feel free to delete them.
 

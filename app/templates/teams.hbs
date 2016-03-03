@@ -1,9 +1,9 @@
 <div class="teams">
     <div class="row">
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-xs-12 col-sm-6 text-xs-center text-sm-left">
             <h1>Teams</h1>
         </div>
-        <div class="col-xs-12 col-sm-6 text-xs-right">
+        <div class="col-xs-12 col-sm-6 text-xs-center text-sm-right">
             <button class="btn btn-secondary" {{action 'toggleCreateTeam'}}>{{fa-icon 'plus'}} Create Team</button>
             {{#if showCreateTeam}}
             <br/><br/>
@@ -14,13 +14,13 @@
                             {{input class="form-control" value=newTeam.name placeholder="Team name"}}
                         </div>
 
-                        {{#unless session.data.authenticated.admin}}
+                        {{#if session.data.authenticated.admin}}
                         <div class="form-group">
                             {{#power-select options=users searchField="fullname" placeholder="Select an owner" selected=newTeam.user onchange=(action (mut newTeam.user)) as |user|}}
                                 {{user.fullname}}
                             {{/power-select}}
                         </div>
-                        {{/unless}}
+                        {{/if}}
 
                         <button class="btn btn-primary" {{action 'createTeam'}}>Create Team</button>
                     </form>
@@ -44,7 +44,7 @@
     </div>
     <div class="row">
         {{#each teams as |team|}}
-        {{team-card team=team markPaid='markPaid'}}
+        {{team-card team=team markPaid='markPaid' removeTeam='removeTeam'}}
         {{/each}}
     </div>
 </div>

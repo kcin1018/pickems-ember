@@ -7,7 +7,7 @@
 
         .name {
             text-align: center;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
         }
 
         .info {
@@ -19,7 +19,7 @@
 
             .status {
                 color: $white;
-                padding: 0 15%;
+                margin: 0 -1rem 1rem -1rem;
 
                 .paid {
                     padding: 0.5rem 0;
@@ -31,6 +31,10 @@
                     padding: 0.5rem 0;
                     background-color: $brand-danger;
                 }
+
+                a {
+                    color: $white;
+                }
             }
         }
 
@@ -38,20 +42,27 @@
             .heading {
                 font-weight: bold;
                 text-decoration: underline;
+                color: darken($white, 25%);
             }
 
             .number {
-                font-size: 1.25rem;
+                font-weight: bold;
+                font-size: 1.75rem;
+                color: $brand-primary;
             }
 
             .rank {
-                font-size: 1rem;
+                font-size: 1.25rem;
             }
         }
 
         .actions {
             margin: 0 -1rem;
             padding: 0.5rem 0 0.5rem 0;
+
+            .action {
+                cursor: pointer;
+            }
         }
     }
 }

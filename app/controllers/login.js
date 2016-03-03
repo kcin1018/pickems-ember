@@ -45,7 +45,7 @@ export default Ember.Controller.extend(Validations, {
 
       // make the authentication attempt
       let { identification, password } = this.getProperties('identification', 'password');
-      this.get('session').authenticate('authenticator:oauth2', identification, password).catch((reason) => {
+      this.get('session').authenticate('authenticator:oauth2', identification.toLowerCase(), password).catch((reason) => {
         this.set('password', null);
         this.set('submitText', 'SIGN IN');
 

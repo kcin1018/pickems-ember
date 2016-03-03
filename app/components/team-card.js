@@ -12,6 +12,9 @@ export default Ember.Component.extend({
       } else {
         this.get('flashMessages').danger('You are not allowed to mark teams as paid');
       }
+    },
+    removeTeam(team) {
+      this.sendAction('removeTeam', team);
     }
   }
 });
