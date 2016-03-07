@@ -1,13 +1,23 @@
 @import 'variables';
 @import 'bower_components/bootstrap/scss/bootstrap';
+@import "bower_components/font-awesome/scss/font-awesome";
 
-@import 'pages/login';
-@import 'pages/home';
-@import 'pages/register';
-@import 'pages/rules';
-@import 'pages/contact';
+@import 'pages';
+@import 'components';
 
-@import 'components/main-menu';
+$ember-power-select-trigger-ltr-padding: 0 0.5rem;
+@import 'ember-power-select/themes/bootstrap';
+@import "ember-power-select";
+
+
+.ember-power-select {
+    width: 100%;
+}
+
+.ember-power-select-trigger {
+    padding: 0.125rem 1.5rem 0.125rem 0.5rem;
+    text-align: left;
+}
 
 body {
     background-color: darken($white, 5%);

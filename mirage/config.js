@@ -9,7 +9,7 @@ export default function() {
   this.namespace = Config.api.namespace;
   this.timing = 100;
 
-  this.post(Config.api.authEndpoint, (db, request) => {
+  this.post(Config.api.authEndpoint, (schema, request) => {
     let params = { grant_type: null, username: null, password: null };
     if (!isEmpty(request.requestBody)) {
       request.requestBody.split('&').forEach(function(part) {
@@ -17,11 +17,12 @@ export default function() {
       });
     }
 
-    let user = db.users.where({ email: params.username });
+    let user = schema.user.where({ email: params.username });
     if (user.length) {
       return {
         access_token: '2389h87g54bg2893bg23b23gf23',
-        user_id: user[0].id
+        user_id: user[0].id,
+        admin: user[0].admin
       };
     } else {
       return new Mirage.Response(401, {}, {
@@ -30,25 +31,24 @@ export default function() {
     }
   });
 
-  this.post('/users', (db, request) => {
-    let data = JSON.parse(request.requestBody).data.attributes;
-    let user = db.users.insert(data);
-    let userId = user.id;
+  this.post('/users');
+  this.get('/users');
+  this.get('/users/:id');
 
-    // remove the not needed data for attributes
-    delete user.password;
-    delete user.id;
+  this.get('/teams', (schema, request) => {
+    let { filter } = request.queryParams;
+    if (filter) {
+      return schema.team.all().filter((team) => {
+        return team.attrs.name.toLowerCase().includes(filter.toLowerCase());
+      });
+    }
 
-    user.username = user.email.split('@')[0];
-
-    return {
-      data: {
-        type: 'users',
-        id: userId,
-        attributes: user
-      }
-    };
+    return schema.team.all();
   });
+
+  this.post('/teams');
+  this.patch('/teams/:id');
+  this.delete('/teams/:id');
 
   // These comments are here to help you get started. Feel free to delete them.
 

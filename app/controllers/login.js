@@ -35,7 +35,7 @@ export default Ember.Controller.extend(Validations, {
       this.get('flashMessages').clearMessages();
 
       // do validation before making authentication attempt
-      let { m, validations } = this.validateSync();
+      let { validations } = this.validateSync();
       if (!validations.get('isValid')) {
         this.get('flashMessages').danger('Please enter an email and password to sign in');
         return;
@@ -45,7 +45,7 @@ export default Ember.Controller.extend(Validations, {
 
       // make the authentication attempt
       let { identification, password } = this.getProperties('identification', 'password');
-      this.get('session').authenticate('authenticator:oauth2', identification, password).catch((reason) => {
+      this.get('session').authenticate('authenticator:oauth2', identification.toLowerCase(), password).catch((reason) => {
         this.set('password', null);
         this.set('submitText', 'SIGN IN');
 

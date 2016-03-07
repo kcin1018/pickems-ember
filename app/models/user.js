@@ -1,6 +1,8 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 import { validator, buildValidations } from 'ember-cp-validations';
 
+const { computed } = Ember;
 const { attr } = DS;
 const Validations = buildValidations({
   first_name: {
@@ -45,9 +47,15 @@ const Validations = buildValidations({
 });
 
 export default DS.Model.extend(Validations, {
-  username: attr('string'),
   first_name: attr('string'),
   last_name: attr('string'),
   email: attr('string'),
-  password: attr('string')
+  password: attr('string'),
+  admin: attr('boolean'),
+
+  fullname: computed('first_name', 'last_name', {
+    get() {
+      return `${this.get('first_name')} ${this.get('last_name')}`;
+    }
+  })
 });

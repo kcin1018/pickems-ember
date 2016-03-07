@@ -12,6 +12,8 @@ Router.map(function() {
   this.route('storyline');
   this.route('rules');
   this.route('contact');
+  this.route('teams');
+  this.route('picks', { path: '/picks/:team' });
 });
 
 export default Router;

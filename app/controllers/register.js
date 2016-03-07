@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { computed, inject : { service } } = Ember;
+const { inject : { service } } = Ember;
 
 export default Ember.Controller.extend({
   session: service(),
@@ -21,7 +21,7 @@ export default Ember.Controller.extend({
             this.get('session').authenticate('authenticator:oauth2', model.get('email'), model.get('password')).then(() => {
               this.get('flashMessages').success('User account created and auto logged in.');
               this.transitionToRoute('index');
-            }, (reason) => {
+            }, () => {
               this.get('flashMessages').danger('Could not log you in.');
             });
           });
