@@ -14,7 +14,7 @@
                             {{input class="form-control" value=newTeam.name placeholder="Team name"}}
                         </div>
 
-                        {{#if session.data.authenticated.admin}}
+                        {{#if sessionUser.user.is_staff}}
                         <div class="form-group">
                             {{#power-select options=users searchField="fullname" placeholder="Select an owner" selected=newTeam.user onchange=(action (mut newTeam.user)) as |user|}}
                                 {{user.fullname}}
@@ -45,7 +45,7 @@
     </div>
     <div class="row">
         {{#each teams as |team|}}
-        {{team-card team=team users=users markPaid='markPaid' removeTeam='removeTeam'}}
+        {{team-card team=team users=users markPaid='markPaid' removeTeam='removeTeam' updateTeam='updateTeam'}}
         {{/each}}
     </div>
 </div>

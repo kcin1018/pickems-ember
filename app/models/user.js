@@ -51,7 +51,7 @@ export default DS.Model.extend(Validations, {
   last_name: attr('string'),
   email: attr('string'),
   password: attr('string'),
-  admin: attr('boolean'),
+  is_staff: attr('boolean'),
 
   fullname: computed('first_name', 'last_name', {
     get() {

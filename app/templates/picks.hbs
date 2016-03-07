@@ -1,1 +1,26 @@
-{{outlet}}
+<div class="picks">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            {{#power-select options=teams searchField="name" placeholder="Select a team" selected=team onchange=(action (mut team)) as |team|}}
+                {{team.name}}
+            {{/power-select}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-xs-center">
+            <h1 class="team-name">{{team.name}}</h1>
+            <h6 class="status text-xs-center">
+                <div class="{{if team.paid 'paid' 'not-paid'}}">{{if team.paid 'Paid' 'Not Paid'}}</div>
+            </h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-xs-center">
+            <div class="btn-group" role="group" aria-label="Select week">
+                {{#each (range 1 17) as |week|}}
+                <button type="button" class="btn btn-secondary{{if (eq system.selectedWeek week) ' active'}}" {{action 'selectWeek' week}}>{{week}}</button>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

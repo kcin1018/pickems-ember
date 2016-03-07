@@ -18,6 +18,7 @@ const Validations = buildValidations({
 export default DS.Model.extend(Validations, {
   name: attr('string'),
   paid: attr('boolean'),
+  slug: attr('string'),
 
   user: belongsTo('user', { async: true })
 });

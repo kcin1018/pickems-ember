@@ -1,0 +1,22 @@
+.picks {
+    padding-top: 1rem;
+
+    .team-name {
+        padding-top: 1rem;
+    }
+
+    .status {
+        color: $white;
+        margin: 0 -1rem 1rem -1rem;
+
+        .paid {
+            padding: 0.5rem 0;
+            background-color: $brand-success;
+        }
+
+        .not-paid {
+            padding: 0.5rem 0;
+            background-color: $brand-danger;
+        }
+    }
+}

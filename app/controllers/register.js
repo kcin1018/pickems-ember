@@ -18,14 +18,17 @@ export default Ember.Controller.extend({
       model.validate().then((data) => {
         if (data.validations.get('isValid')) {
           model.save().then(() => {
-            this.get('session').authenticate('authenticator:oauth2', model.get('email'), model.get('password')).then(() => {
+            this.get('session').authenticate('authenticator:oauth2', model.get('email'), model.get('passwordConfirm')).then(() => {
               this.get('flashMessages').success('User account created and auto logged in.');
               this.transitionToRoute('index');
             }, () => {
               this.get('flashMessages').danger('Could not log you in.');
             });
+          }, (reason) => {
+            this.get('flashMessages').danger(reason.errors[0]);
           });
         }
+
         this.set('submitDisabled', false);
         this.set('submitText', 'Create an Account');
       });

@@ -1,10 +1,11 @@
 import Ember from 'ember';
+import { stringSlugify } from 'pickems/helpers/string-slugify';
 
 const { computed, inject, isEmpty } = Ember;
 
 export default Ember.Controller.extend({
   flashMessages: inject.service(),
-  session: inject.service(),
+  sessionUser: inject.service('session-user'),
   sortProperties: ['name'],
   sortedTeams: computed.sort('model.teams', 'sortProperties'),
   users: computed.alias('model.users'),
@@ -46,8 +47,8 @@ export default Ember.Controller.extend({
     },
     createTeam() {
       let newTeam = this.get('newTeam');
-      if (!this.get('session.data.authenticated.admin')) {
-        this.store.findRecord('user', this.get('session.data.authenticated.user_id')).then((user) => {
+      if (!this.get('sessionUser.user.is_staff')) {
+        this.store.findRecord('user', this.get('sessionUser.user.id')).then((user) => {
           newTeam.user = user;
           this.send('doCreateTeam', newTeam);
         });
@@ -56,17 +57,28 @@ export default Ember.Controller.extend({
       }
     },
     doCreateTeam(newTeam) {
+      this.get('flashMessages').clearMessages();
+
       if (isEmpty(newTeam.name) || isEmpty(newTeam.user)) {
-        this.get('flashMessages').clearMessages();
         this.get('flashMessages').danger('You must enter a team name and select an owner');
         return;
       }
+
+      // generate the slug
+      newTeam.slug = stringSlugify([newTeam.name]);
 
       let team = this.store.createRecord('team', newTeam);
       team.save().then(() => {
         this.get('flashMessages').clearMessages();
         this.get('flashMessages').success(`Team '${team.get('name')}' created`);
         this.send('toggleCreateTeam');
+      }, (reason) => {
+        if (reason.errors.slug[0]) {
+          this.get('flashMessages').danger(`There is already a team named '${team.get('name')}'`);
+        } else {
+          this.get('flashMessages').danger('Could not create team');
+        }
+        team.destroyRecord();
       });
     },
     removeTeam(team) {
@@ -77,6 +89,16 @@ export default Ember.Controller.extend({
           this.get('flashMessages').success(`Team '${teamName}' deleted`);
         });
       }
+    },
+    updateTeam(team) {
+      // re-generate the slug
+      team.set('slug', stringSlugify([team.get('name')]));
+
+      team.save().then(() => {
+        this.get('flashMessages').success('Team information saved');
+        this.set('isEditing', false);
+      });
+
     }
   }
 });

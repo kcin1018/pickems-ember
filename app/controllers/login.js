@@ -49,7 +49,7 @@ export default Ember.Controller.extend(Validations, {
         this.set('password', null);
         this.set('submitText', 'SIGN IN');
 
-        this.get('flashMessages').danger(reason.error || reason);
+        this.get('flashMessages').danger('Invalid email and/or password');
       });
     }
   }

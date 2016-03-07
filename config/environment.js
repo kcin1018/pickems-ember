@@ -6,6 +6,7 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
+    paypalAddress: 'mrimler@gmail.com',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -29,6 +30,10 @@ module.exports = function(environment) {
       host: 'http://localhost:8000',
       namespace: 'api/v1',
       authEndpoint: 'auth'
+    };
+
+    ENV['ember-cli-mirage'] = {
+      enabled: false
     };
   }
 

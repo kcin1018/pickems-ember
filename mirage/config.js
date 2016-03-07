@@ -20,9 +20,11 @@ export default function() {
     let user = schema.user.where({ email: params.username });
     if (user.length) {
       return {
-        access_token: '2389h87g54bg2893bg23b23gf23',
-        user_id: user[0].id,
-        admin: user[0].admin
+        data: {
+          access_token: '2389h87g54bg2893bg23b23gf23',
+          user_id: user[0].id,
+          admin: user[0].admin
+        }
       };
     } else {
       return new Mirage.Response(401, {}, {
@@ -36,11 +38,13 @@ export default function() {
   this.get('/users/:id');
 
   this.get('/teams', (schema, request) => {
-    let { filter } = request.queryParams;
+    let { filter, slug } = request.queryParams;
     if (filter) {
       return schema.team.all().filter((team) => {
         return team.attrs.name.toLowerCase().includes(filter.toLowerCase());
       });
+    } else if (slug) {
+      return schema.team.where({ slug: slug });
     }
 
     return schema.team.all();

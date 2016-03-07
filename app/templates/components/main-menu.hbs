@@ -3,52 +3,54 @@
         &#9776;
     </button>
     {{#if session.isAuthenticated}}
-    {{link-to 'Pickems' 'storyline' class="navbar-brand"}}
+        {{link-to 'Pickems' 'storyline' class="navbar-brand"}}
     {{else}}
-    {{link-to 'Pickems' 'index' class="navbar-brand"}}
+        {{link-to 'Pickems' 'index' class="navbar-brand"}}
     {{/if}}
     <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
         <ul class="nav navbar-nav">
             {{#if session.isAuthenticated}}
-            {{#link-to 'storyline' class="nav-item" tagName='li'}}
-                <a class="nav-link" href="#">Storylines</a>
-            {{/link-to}}
-            {{#link-to 'teams' class="nav-item" tagName='li'}}
-                <a class="nav-link" href="#">Teams</a>
-            {{/link-to}}
-            <li class="nav-item">
-                <a class="nav-link" href="#">Stats</a>
-            </li>
+                {{#link-to 'storyline' class="nav-item" tagName='li'}}
+                    <a class="nav-link" href="#">Storylines</a>
+                {{/link-to}}
+                {{#link-to 'teams' class="nav-item" tagName='li'}}
+                    <a class="nav-link" href="#">Teams</a>
+                {{/link-to}}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Stats</a>
+                </li>
             {{else}}
-            {{#link-to 'rules' class="nav-item" tagName='li'}}
-                <a class="nav-link" href="#">What exactly is this?</a>
-            {{/link-to}}
-            {{#link-to 'contact' class="nav-item" tagName='li'}}
-                <a class="nav-link" href="#">I have a question!</a>
-            {{/link-to}}
+                {{#link-to 'rules' class="nav-item" tagName='li'}}
+                    <a class="nav-link" href="#">What exactly is this?</a>
+                {{/link-to}}
+                {{#link-to 'contact' class="nav-item" tagName='li'}}
+                    <a class="nav-link" href="#">I have a question!</a>
+                {{/link-to}}
             {{/if}}
         </ul>
         <ul class="nav navbar-nav pull-xs-right">
             {{#if session.isAuthenticated}}
-            {{#link-to 'rules' class="nav-item" tagName='li'}}
-                <a class="nav-link" href="#">Rules</a>
-            {{/link-to}}
-            {{#link-to 'contact' class="nav-item" tagName='li'}}
-                <a class="nav-link" href="#">Contact</a>
-            {{/link-to}}
-            <li class="nav-item">
-                <a class="nav-link" href="#">Admin</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" {{action 'logout'}}>Logout</a>
-            </li>
+                {{#link-to 'rules' class="nav-item" tagName='li'}}
+                    <a class="nav-link" href="#">Rules</a>
+                {{/link-to}}
+                {{#link-to 'contact' class="nav-item" tagName='li'}}
+                    <a class="nav-link" href="#">Contact</a>
+                {{/link-to}}
+                {{#if sessionUser.user.is_staff}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Admin</a>
+                    </li>
+                {{/if}}
+                <li class="nav-item">
+                    <a class="nav-link" href="#" {{action 'logout'}}>Logout</a>
+                </li>
             {{else}}
-            {{#link-to 'login' class="nav-item" tagName='li'}}
-                <a class="nav-link" href="#">Login</a>
-            {{/link-to}}
-            {{#link-to 'register' class="nav-item" tagName='li'}}
-                <a class="nav-link" href="#">Register</a>
-            {{/link-to}}
+                {{#link-to 'login' class="nav-item" tagName='li'}}
+                    <a class="nav-link" href="#">Login</a>
+                {{/link-to}}
+                {{#link-to 'register' class="nav-item" tagName='li'}}
+                    <a class="nav-link" href="#">Register</a>
+                {{/link-to}}
             {{/if}}
         </ul>
     </div>

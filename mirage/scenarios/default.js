@@ -5,7 +5,11 @@ export default function(server) {
     email: 'nick.felicelli@gmail.com',
     admin: true
   });
-  server.create('team', { userId: 1 });
+  server.create('team', {
+    userId: 1,
+    name: 'Bryson\'s Boys',
+    slug: 'brysons-boys'
+  });
 
   let users = server.createList('user', 5);
   users.forEach((user) => {
