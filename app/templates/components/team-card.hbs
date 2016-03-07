@@ -53,7 +53,7 @@
                 {{else}}
                     <div class="col-xs-4 text-xs-center">
                         {{#link-to 'picks' team.id}}
-                            {{fa-icon 'teams'}} Picks
+                            {{fa-icon 'list'}} Picks
                         {{/link-to}}
                     </div>
                     {{#if (or session.data.authenticated.admin (eq team.user.id session.data.authenticated.user_id))}}
