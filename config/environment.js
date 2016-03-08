@@ -7,6 +7,14 @@ module.exports = function(environment) {
     baseURL: '/',
     locationType: 'auto',
     paypalAddress: 'mrimler@gmail.com',
+    flashMessageDefaults: {
+      // flash message defaults
+      timeout: 5000,
+      extendedTimeout: 0,
+      priority: 200,
+      sticky: true,
+      showProgress: true,
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

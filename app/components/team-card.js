@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import { stringSlugify } from 'pickems/helpers/string-slugify';
 
 const { service } = Ember.inject;
 
@@ -10,7 +9,7 @@ export default Ember.Component.extend({
   isEditing: false,
   actions: {
     markPaid() {
-      if (this.get('sessionUser.user.admin')) {
+      if (this.get('sessionUser.user.is_staff')) {
         this.sendAction('markPaid', this.get('team'));
       } else {
         this.get('flashMessages').danger('You are not allowed to mark teams as paid');

@@ -19,6 +19,7 @@ export default Ember.Controller.extend({
   },
   actions: {
     createAccount() {
+      this.get('flashMessages').clearMessages();
       this.set('submitDisabled', true);
       this.set('submitText', 'Creating an Account...');
       this.set('errors', {});

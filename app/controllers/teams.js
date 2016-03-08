@@ -91,6 +91,8 @@ export default Ember.Controller.extend({
       }
     },
     updateTeam(team) {
+      this.get('flashMessages').clearMessages();
+
       // re-generate the slug
       team.set('slug', stringSlugify([team.get('name')]));
 

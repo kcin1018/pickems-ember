@@ -1,21 +1,8 @@
 import Ember from 'ember';
-import {
-  validator, buildValidations
-}
-from 'ember-cp-validations';
 
-const { computed, inject : { service } } = Ember;
-const Validations = buildValidations({
-  identification: [
-    validator('presence', true),
-    validator('format', {
-      type: 'email'
-    })
-  ],
-  password: validator('presence', true)
-});
+const { isEmpty, computed, inject : { service } } = Ember;
 
-export default Ember.Controller.extend(Validations, {
+export default Ember.Controller.extend({
   session: service(),
   flashMessages: service(),
 
@@ -35,8 +22,7 @@ export default Ember.Controller.extend(Validations, {
       this.get('flashMessages').clearMessages();
 
       // do validation before making authentication attempt
-      let { validations } = this.validateSync();
-      if (!validations.get('isValid')) {
+      if (isEmpty(this.get('identification')) || isEmpty(this.get('password'))) {
         this.get('flashMessages').danger('Please enter an email and password to sign in');
         return;
       }
@@ -45,7 +31,7 @@ export default Ember.Controller.extend(Validations, {
 
       // make the authentication attempt
       let { identification, password } = this.getProperties('identification', 'password');
-      this.get('session').authenticate('authenticator:oauth2', identification.toLowerCase(), password).catch((reason) => {
+      this.get('session').authenticate('authenticator:oauth2', identification.toLowerCase(), password).catch(() => {
         this.set('password', null);
         this.set('submitText', 'SIGN IN');
 
