@@ -17,8 +17,8 @@
     <div class="row">
         <div class="col-xs-12 text-xs-center">
             <div class="btn-group" role="group" aria-label="Select week">
-                {{#each (range 1 17) as |week|}}
-                <button type="button" class="btn btn-secondary{{if (eq system.selectedWeek week) ' active'}}" {{action 'selectWeek' week}}>{{week}}</button>
+                {{#each (range 1 18) as |week|}}
+                    <button type="button" class="btn btn-secondary{{if (eq system.selectedWeek week) ' active'}}" {{action 'selectWeek' week}}>{{week}}</button>
                 {{/each}}
             </div>
         </div>

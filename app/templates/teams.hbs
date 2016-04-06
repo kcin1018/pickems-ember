@@ -31,21 +31,23 @@
         </div>
     </div>
     <hr/>
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-8">
-            <div class="input-group">
-                <div class="input-group-addon">{{fa-icon 'search'}}</div>
-                {{input class='form-control' value=filter placeholder='Filter'}}
-                <div class="input-group-addon clear-filter" {{action 'clearFilter'}}>{{fa-icon 'remove'}}</div>
+    {{#if teams}}
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-8">
+                <div class="input-group">
+                    <div class="input-group-addon">{{fa-icon 'search'}}</div>
+                    {{input class='form-control' value=filter placeholder='Filter'}}
+                    <div class="input-group-addon clear-filter" {{action 'clearFilter'}}>{{fa-icon 'remove'}}</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">&nbsp;</div>
-    </div>
-    <div class="row">
-        {{#each teams as |team|}}
-        {{team-card team=team users=users markPaid='markPaid' removeTeam='removeTeam' updateTeam='updateTeam'}}
-        {{/each}}
-    </div>
+        <div class="row">
+            <div class="col-xs-12">&nbsp;</div>
+        </div>
+        <div class="row">
+            {{#each teams as |team|}}
+                {{team-card team=team users=users markPaid='markPaid' removeTeam='removeTeam' updateTeam='updateTeam'}}
+            {{/each}}
+        </div>
+    {{/if}}
 </div>
