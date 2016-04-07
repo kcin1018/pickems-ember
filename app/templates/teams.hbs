@@ -16,7 +16,7 @@
 
                         {{#if sessionUser.user.is_staff}}
                         <div class="form-group">
-                            {{#power-select options=users searchField="fullname" placeholder="Select an owner" selected=newTeam.user onchange=(action (mut newTeam.user)) as |user|}}
+                            {{#power-select class="form-control" options=users searchField="fullname" placeholder="Select an owner" selected=newTeam.user onchange=(action (mut newTeam.user)) as |user|}}
                                 {{user.fullname}}
                             {{/power-select}}
                         </div>
@@ -31,23 +31,30 @@
         </div>
     </div>
     <hr/>
-    {{#if teams}}
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-8">
-                <div class="input-group">
-                    <div class="input-group-addon">{{fa-icon 'search'}}</div>
-                    {{input class='form-control' value=filter placeholder='Filter'}}
-                    <div class="input-group-addon clear-filter" {{action 'clearFilter'}}>{{fa-icon 'remove'}}</div>
-                </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-8">
+            <div class="input-group">
+                <div class="input-group-addon">{{fa-icon 'search'}}</div>
+                {{input class='form-control' value=filter placeholder='Filter'}}
+                <div class="input-group-addon clear-filter" {{action 'clearFilter'}}>{{fa-icon 'remove'}}</div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">&nbsp;</div>
-        </div>
-        <div class="row">
-            {{#each teams as |team|}}
-                {{team-card team=team users=users markPaid='markPaid' removeTeam='removeTeam' updateTeam='updateTeam'}}
-            {{/each}}
-        </div>
-    {{/if}}
+    </div>
+    <div class="row">
+        <div class="col-xs-12">&nbsp;</div>
+    </div>
+    <div class="row">
+        {{#each teams as |team|}}
+            {{team-card team=team users=users markPaid='markPaid' removeTeam='removeTeam' updateTeam='updateTeam'}}
+        {{else}}
+        <h1 class="text-xs-center">{{fa-icon 'refresh' spin=true}} Loading...</h1>
+        {{/each}}
+    </div>
+    <hr/>
+    <nav>
+        <ul class="pager">
+            <li><a {{action 'paginate' -1}}>Previous</a></li>
+            <li><a {{action 'paginate' 1}}>Next</a></li>
+        </ul>
+    </nav>
 </div>

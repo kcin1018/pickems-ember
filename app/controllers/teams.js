@@ -1,33 +1,32 @@
 import Ember from 'ember';
 import { stringSlugify } from 'pickems/helpers/string-slugify';
 
-const { computed, inject, isEmpty } = Ember;
+const { computed, inject, isEmpty, observer } = Ember;
 
 export default Ember.Controller.extend({
   flashMessages: inject.service(),
   sessionUser: inject.service('session-user'),
   sortProperties: ['name'],
-  sortedTeams: computed.sort('model.teams', 'sortProperties'),
+  currentPage: 1,
   users: computed.alias('model.users'),
-  teams: computed('sortedTeams', 'filter', {
+
+  teams: computed('model.teams', 'filter', 'currentPage', {
     get() {
       let filter = this.get('filter');
 
       // handle the filter if entered
       if (filter) {
-        let teams = this.get('sortedTeams');
-
-        // filter all teams based on the them name and owner
-        return teams.filter((team) => {
-          filter = filter.toLowerCase();
-          return team.get('name').search(new RegExp(filter, 'i')) !== -1 || team.get('user.fullname').search(new RegExp(filter, 'i')) !== -1;
-        });
+        return this.store.query('team', { filter: filter, page: this.get('currentPage') });
       }
 
       // return all teams if no filter
-      return this.get('sortedTeams');
+      return this.store.query('team', { page: this.get('currentPage') });
     }
   }),
+  _clearPaginate: observer('filter', function() {
+    this.set('currentPage', 1);
+  }),
+
   filter: null,
   showCreateTeam: false,
   actions: {
@@ -100,7 +99,9 @@ export default Ember.Controller.extend({
         this.get('flashMessages').success('Team information saved');
         this.set('isEditing', false);
       });
-
+    },
+    paginate(step) {
+      this.set('currentPage', this.get('currentPage') + 1);
     }
   }
 });
