@@ -1,0 +1,57 @@
+<nav class="navbar navbar-light">
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+        &#9776;
+    </button>
+    {{#if session.isAuthenticated}}
+        {{link-to 'Pickems' 'storyline' class="navbar-brand"}}
+    {{else}}
+        {{link-to 'Pickems' 'index' class="navbar-brand"}}
+    {{/if}}
+    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+        <ul class="nav navbar-nav">
+            {{#if session.isAuthenticated}}
+                <li class="nav-item">
+                    {{link-to 'Storylines' 'storyline' class='nav-link'}}
+                </li>
+                <li class="nav-item">
+                    {{link-to 'Teams' 'teams' class='nav-link'}}
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Stats</a>
+                </li>
+            {{else}}
+                <li class="nav-item">
+                    {{link-to 'Rules' 'rules' class='nav-link'}}
+                </li>
+                <li class="nav-item">
+                    {{link-to 'Contact' 'contact' class='nav-link'}}
+                </li>
+            {{/if}}
+        </ul>
+        <ul class="nav navbar-nav pull-xs-right">
+            {{#if session.isAuthenticated}}
+                <li class="nav-item">
+                    {{link-to 'Rules' 'rules' class='nav-link'}}
+                </li>
+                <li class="nav-item">
+                    {{link-to 'Contact' 'contact' class='nav-link'}}
+                </li>
+                {{#if sessionUser.user.is_staff}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Admin</a>
+                    </li>
+                {{/if}}
+                <li class="nav-item">
+                    <a class="nav-link" href="#" {{action 'logout'}}>Logout</a>
+                </li>
+            {{else}}
+                <li class="nav-item">
+                    {{link-to 'Login' 'login' class='nav-link'}}
+                </li>
+                <li class="nav-item">
+                    {{link-to 'Register' 'register' class='nav-link'}}
+                </li>
+            {{/if}}
+        </ul>
+    </div>
+</nav>

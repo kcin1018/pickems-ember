@@ -3,49 +3,65 @@
 namespace app\Http\Controllers\Auth;
 
 use App\User;
-use Dingo\Api\Http\Request;
-use Dingo\Api\Routing\Helpers;
+use Validator;
 use App\Http\Controllers\Controller;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
-    use Helpers;
-
-    public function postLogin(Request $request)
+    /*
+    |--------------------------------------------------------------------------
+    | Registration & Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users, as well as the
+    | authentication of existing users. By default, this controller uses
+    | a simple trait to add these behaviors. Why don't you explore it?
+    |
+    */
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    /**
+     * Where to redirect users after login / registration.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
+    /**
+     * Create a new authentication controller instance.
+     */
+    public function __construct()
     {
-        // grab credentials from the request
-        $credentials = $request->only('email', 'password');
-
-        try {
-            // attempt to verify the credentials and create a token for the user
-            if (!$token = \JWTAuth::attempt($credentials)) {
-                throw new UnauthorizedHttpException('Email address / password do not match');
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            throw new HttpException('Unable to login');
-        }
-
-        // all good so return the token
-        return $this->response->array(compact('token'));
+        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
-
-    public function refreshToken(Request $request)
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param array $data
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
     {
-        $token = $request->get('token');
-        if (!$token) {
-            return $this->response->errorBadRequest('Token not provided');
-        }
-        try {
-            $token = \JWTAuth::refresh($token);
-        } catch (TokenInvalidException $e) {
-            return $this->response->errorForbidden('Invalid token provided');
-        }
-
-        return $this->response->array(compact('token'));
+        return Validator::make($data, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
+    }
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param array $data
+     *
+     * @return User
+     */
+    protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
     }
 }

@@ -21,7 +21,7 @@ $api->version('v1', function ($api) {
         // Auth
         $api->post('auth/login', 'Auth\AuthController@postLogin');
         $api->post('auth/token-refresh', 'Auth\AuthController@refreshToken');
-        $api->post('users', 'Auth\UsersController@store');
+        $api->post('users', 'UsersController@store');
 
         // Protected methods (require auth)
         $api->group(['middleware' => 'api.auth'], function ($api) {
@@ -29,6 +29,7 @@ $api->version('v1', function ($api) {
         });
 
         // Public methods
+        $api->get('home-stats', 'GeneralController@homeStats');
 
     });
 });

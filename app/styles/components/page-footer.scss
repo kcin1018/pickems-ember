@@ -1,0 +1,9 @@
+.footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    padding: 0.5rem;
+    border: 1px solid darken($white, 10%);
+    background-color: $white;
+    color: darken($white, 35%);
+}

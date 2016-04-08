@@ -155,10 +155,7 @@ return [
         |
         */
 
-        'auth' => [
-            'jwt' => 'Dingo\Api\Auth\Provider\JWT',
-            // 'Tymon\JWTAuth\Providers\Auth\IlluminateAuthAdapter',
-        ],
+        'auth' => 'Tymon\JWTAuth\Providers\Auth\IlluminateAuthAdapter',
 
         /*
         |--------------------------------------------------------------------------

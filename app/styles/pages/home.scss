@@ -1,0 +1,32 @@
+.home {
+    padding-top: 1rem;
+
+    .section {
+        border-radius: 3px;
+        background-color: $white;
+        border: 1px solid darken($white, 15%);
+        padding: 1rem;
+        margin-bottom: 1rem;
+
+        &.jumbotron {
+            margin-bottom: 2rem;
+            padding: 2rem;
+        }
+
+        .smaller {
+            font-size: 0.75rem;
+        }
+    }
+
+    .card-text {
+        height: 6.5rem;
+
+        @media(min-width: 48em) {
+            height: 14rem;
+        }
+
+        @media(min-width: 80em) {
+            height: 6.5rem;
+        }
+    }
+}

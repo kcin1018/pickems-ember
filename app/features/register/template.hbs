@@ -1,0 +1,48 @@
+<div class="row register">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+        <div class="container">
+            <h2 class="card-title text-xs-center">CREATE AN ACCOUNT</h2>
+            <hr/>
+
+            <div class="form-group{{if errors.email ' has-danger'}}">
+                {{input class=(if errors.email 'form-control form-control-danger' 'form-control') value=registrantData.email placeholder='Email'}}
+                {{#if errors.email}}
+                <div class="text-help">{{errors.email}}</div>
+                {{/if}}
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group{{if errors.name ' has-danger'}}">
+                        {{input class=(if errors.name 'form-control form-control-danger' 'form-control') value=registrantData.name placeholder='Name'}}
+                        {{#if errors.name}}
+                            <div class="text-help">{{errors.name}}</div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group{{if errors.password ' has-danger'}}">
+                        {{input class=(if errors.password 'form-control form-control-danger' 'form-control') type="password" value=registrantData.password placeholder='Password'}}
+                        {{#if errors.password}}
+                            <div class="text-help">{{errors.password}}</div>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group{{if errors.passwordConfirm ' has-danger'}}">
+                        {{input class=(if errors.passwordConfirm 'form-control form-control-danger' 'form-control') type="password" value=registrantData.passwordConfirm placeholder='Verify Password'}}
+                        {{#if errors.passwordConfirm}}
+                            <div class="text-help">{{errors.passwordConfirm}}</div>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block" {{action 'createAccount'}} disabled={{if submitDisabled 'disabled'}}>{{submitBtnText}}</button>
+            </div>
+        </div>
+    </div>
+</div>
