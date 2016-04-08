@@ -1,1 +1,176 @@
-{{outlet}}
+<div class="picks">
+    <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            {{#power-select class="form-control" options=teams searchField="name" placeholder="Select a team" selected=team onchange=(action 'selectTeam') as |team|}}
+                {{team.name}}
+            {{/power-select}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-xs-center">
+            <h1 class="team-name">{{team.name}}</h1>
+            <h6 class="status text-xs-center">
+                <div class="{{if team.paid 'paid' 'not-paid'}}">{{if team.paid 'Paid' 'Not Paid'}}</div>
+            </h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-xs-center">
+            <div class="btn-group" role="group" aria-label="Select week">
+                {{#each system.weeks as |week|}}
+                    <button type="button" class="btn btn-secondary{{if (eq system.selectedWeek week) ' active'}}" {{action 'selectWeek' week}}>{{week}}</button>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-6 text-xs-center">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">Pick #1</h4>
+                    <hr/>
+                    <div class="form-group{{unless pick1.valid ' has-error'}}">
+                        {{#power-select class="form-control" searchPlaceholder="Start typing to search" allowClear=true disabled=pick1.disabled search=(action 'filterPicks') placeholder="Make a selection" selected=pick1.pick onchange=(action (mut pick1.pick)) as |pick|}}
+                            {{get pick 'display'}}
+                        {{/power-select}}
+
+                        <p><br/>{{input type='checkbox' checked=pick1.playmaker disabled=pick1.disabled id='playmaker1'}} <label for="playmaker1" class="{{unless pick1.valid 'text-danger'}}">Denote Playmaker</label></p>
+
+                        {{#unless pick1.valid}}
+                        <div class="alert alert-danger">
+                            {{pick1.reason}}
+                        </div>
+                        {{/unless}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-xs-center">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">Pick #2</h4>
+                    <hr/>
+                    <div class="form-group{{unless pick2.valid ' has-error'}}">
+                        {{#power-select class="form-control" searchPlaceholder="Start typing to search" allowClear=true disabled=pick2.disabled search=(action 'filterPicks') placeholder="Make a selection" selected=pick2.pick onchange=(action (mut pick2.pick)) as |pick|}}
+                            {{get pick 'display'}}
+                        {{/power-select}}
+
+                        <p><br/>{{input type='checkbox' checked=pick2.playmaker disabled=pick2.disabled id='playmaker2'}} <label for="playmaker2" class="{{unless pick2.valid 'text-danger'}}">Denote Playmaker</label></p>
+
+                        {{#unless pick2.valid}}
+                        <div class="alert alert-danger">
+                            {{pick2.reason}}
+                        </div>
+                        {{/unless}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4 text-xs-center">
+            <button class="btn btn-primary btn-block" {{action 'savePicks'}} disabled={{disableSaveBtn}}>
+                {{#if disableSaveBtn}}
+                    {{fa-icon 'cog' spin=true fixedWidth=true}}
+                {{else}}
+                    {{fa-icon 'save' fixedWidth=true}}
+                {{/if}}
+
+                {{saveBtnText}}
+            </button>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-4 text-xs-center">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">Picks Left</h4>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-xs-6 text-xs-right">QBs:</div>
+                        <div class="col-xs-6 text-xs-left{{unless counts.positions.QB ' text-danger'}}"><strong>{{counts.positions.QB}}</strong></div>
+                        <div class="col-xs-6 text-xs-right">RBs:</div>
+                        <div class="col-xs-6 text-xs-left{{unless counts.positions.RB ' text-danger'}}"><strong>{{counts.positions.RB}}</strong></div>
+                        <div class="col-xs-6 text-xs-right">WRTEs:</div>
+                        <div class="col-xs-6 text-xs-left{{unless counts.positions.WRTE ' text-danger'}}"><strong>{{counts.positions.WRTE}}</strong></div>
+                        <div class="col-xs-6 text-xs-right">Ks:</div>
+                        <div class="col-xs-6 text-xs-left{{unless counts.positions.K ' text-danger'}}"><strong>{{counts.positions.K}}</strong></div>
+                        <div class="col-xs-6 text-xs-right">Teams:</div>
+                        <div class="col-xs-6 text-xs-left">
+                            <strong class="{{unless counts.conferences.AFC ' text-danger'}}">AFC</strong>,
+                            <strong class="{{unless counts.conferences.NFC ' text-danger'}}">NFC</strong>
+                        </div>
+                        <div class="col-xs-6 text-xs-right">Playmakers:</div>
+                        <div class="col-xs-6 text-xs-left{{unless counts.playmakers ' text-danger'}}"><strong>{{counts.playmakers}}</strong></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 text-xs-center">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">AFC Teams Picked</h4>
+                    <hr/>
+                    <div class="row">
+                        {{#each counts.teams.afc as |team|}}
+                            <div class="col-xs-6 col-md-12 col-lg-6{{if team.used ' text-danger'}}">
+                                {{#if team.used}}
+                                    <del>{{team.name}}</del>
+                                {{else}}
+                                    {{team.name}}
+                                {{/if}}
+                            </div>
+                        {{/each}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 text-xs-center">
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">NFC Teams Picked</h4>
+                    <hr/>
+                    <div class="row">
+                        {{#each counts.teams.nfc as |team|}}
+                            <div class="col-xs-6 col-md-12 col-lg-6{{if team.used ' text-danger'}}">
+                                {{#if team.used}}
+                                    <del>{{team.name}}</del>
+                                {{else}}
+                                    {{team.name}}
+                                {{/if}}
+                            </div>
+                        {{/each}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1 nfl-schedule">
+            <h3>NFL Schedule for Week #{{system.selectedWeek}}</h3>
+            <table class="table table-hover">
+                <tbody>
+                {{#each-in nflGames as |time games|}}
+                    <tr class="table-info"><td colspan="4">{{moment-format time 'dddd, MMMM Do YYYY'}}</td></tr>
+                    {{#each games as |game|}}
+                        <tr>
+                            <td>{{game.away}}</td>
+                            <td>@</td>
+                            <td>{{game.home}}</td>
+                            <td><a target="_blank" href="{{game.url}}">{{moment-format game.start 'h:mm a'}}</a></td>
+                        </tr>
+                    {{/each}}
+                {{/each-in}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

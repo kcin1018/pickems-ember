@@ -1,23 +1,13 @@
 import DS from 'ember-data';
-import { validator, buildValidations } from 'ember-cp-validations';
 
-const { attr, belongsTo } = DS;
+const { attr, belongsTo, hasMany } = DS;
 
-const Validations = buildValidations({
-  first_name: {
-    debounce: 500,
-    validators: [
-      validator('presence', true),
-      validator('length', {
-        max: 25
-      })
-    ]
-  }
-});
-
-export default DS.Model.extend(Validations, {
+export default DS.Model.extend({
   name: attr('string'),
   paid: attr('boolean'),
+  slug: attr('string'),
 
-  user: belongsTo('user', { async: true })
+  user: belongsTo('user', { async: true }),
+
+  picks: hasMany('team-pick', { async: true })
 });

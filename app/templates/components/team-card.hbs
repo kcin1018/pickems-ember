@@ -4,7 +4,7 @@
             <div class="form-group">
             {{input value=team.name class='form-control'}}
             </div>
-            {{#if (or session.data.authenticated.admin (eq team.user.id session.data.authenticated.user_id))}}
+            {{#if sessionUser.user.is_staff}}
                 <div class="form-group">
                 {{#power-select options=users searchField="fullname" placeholder="Select an owner" selected=team.user onchange=(action (mut team.user)) as |user|}}
                     {{user.fullname}}
@@ -20,10 +20,10 @@
                 {{#if team.paid}}
                 <div class="paid">Paid</div>
                 {{else}}
-                    {{#if session.data.authenticated.admin}}
+                    {{#if sessionUser.user.is_staff}}
                     <div class="not-paid admin" {{action 'markPaid'}}>Mark as paid</div>
                     {{else}}
-                    <div class="not-paid"><a href="https://www.paypal.com/" target="_new">paypal: mrimler@gmail.com</a></div>
+                    <div class="not-paid"><a href="https://www.paypal.com/" target="_new">paypal: {{system.config.paypalAddress}}</a></div>
                     {{/if}}
                 {{/if}}
             </h6>
@@ -45,18 +45,18 @@
             <div class="row">
                 {{#if isEditing}}
                     <div class="col-xs-6 text-xs-center">
-                        <span class="card-link action text-primary" {{action 'saveEdit'}}>{{fa-icon 'save'}} Save</span>
+                        <span class="card-link action text-primary" {{action 'updateTeam'}}>{{fa-icon 'save'}} Save</span>
                     </div>
                     <div class="col-xs-6 text-xs-center">
                         <span class="card-link action" {{action 'cancelEdit'}}>{{fa-icon 'remove'}} Cancel</span>
                     </div>
                 {{else}}
                     <div class="col-xs-4 text-xs-center">
-                        {{#link-to 'picks' team.id}}
+                        {{#link-to 'picks' team.slug}}
                             {{fa-icon 'list'}} Picks
                         {{/link-to}}
                     </div>
-                    {{#if (or session.data.authenticated.admin (eq team.user.id session.data.authenticated.user_id))}}
+                    {{#if (or sessionUser.user.is_staff (eq team.user.id sessionUser.user.id))}}
                     <div class="col-xs-4 text-xs-center">
                         <span class="card-link action" {{action 'toggleEdit'}}>{{fa-icon 'edit'}} Edit</span>
                     </div>

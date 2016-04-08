@@ -14,9 +14,9 @@
                             {{input class="form-control" value=newTeam.name placeholder="Team name"}}
                         </div>
 
-                        {{#if session.data.authenticated.admin}}
+                        {{#if sessionUser.user.is_staff}}
                         <div class="form-group">
-                            {{#power-select options=users searchField="fullname" placeholder="Select an owner" selected=newTeam.user onchange=(action (mut newTeam.user)) as |user|}}
+                            {{#power-select class="form-control" options=users searchField="fullname" placeholder="Select an owner" selected=newTeam.user onchange=(action (mut newTeam.user)) as |user|}}
                                 {{user.fullname}}
                             {{/power-select}}
                         </div>
@@ -45,7 +45,16 @@
     </div>
     <div class="row">
         {{#each teams as |team|}}
-        {{team-card team=team users=users markPaid='markPaid' removeTeam='removeTeam'}}
+            {{team-card team=team users=users markPaid='markPaid' removeTeam='removeTeam' updateTeam='updateTeam'}}
+        {{else}}
+        <h1 class="text-xs-center">{{fa-icon 'refresh' spin=true}} Loading...</h1>
         {{/each}}
     </div>
+    <hr/>
+    <nav>
+        <ul class="pager">
+            <li><a {{action 'paginate' -1}}>Previous</a></li>
+            <li><a {{action 'paginate' 1}}>Next</a></li>
+        </ul>
+    </nav>
 </div>

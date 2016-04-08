@@ -6,6 +6,15 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
+    paypalAddress: 'mrimler@gmail.com',
+    flashMessageDefaults: {
+      // flash message defaults
+      timeout: 5000,
+      extendedTimeout: 0,
+      priority: 200,
+      sticky: true,
+      showProgress: true,
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -29,6 +38,10 @@ module.exports = function(environment) {
       host: 'http://localhost:8000',
       namespace: 'api/v1',
       authEndpoint: 'auth'
+    };
+
+    ENV['ember-cli-mirage'] = {
+      enabled: false
     };
   }
 

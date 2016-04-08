@@ -1,0 +1,35 @@
+.picks {
+    padding-top: 1rem;
+
+    .team-name {
+        padding-top: 1rem;
+    }
+
+    .status {
+        color: $white;
+        margin: 0 -1rem 1rem -1rem;
+
+        .paid {
+            padding: 0.5rem 0;
+            background-color: $brand-success;
+        }
+
+        .not-paid {
+            padding: 0.5rem 0;
+            background-color: $brand-danger;
+        }
+    }
+
+    .counts {
+        font-size: 0.8rem;
+    }
+
+    .nfl-schedule {
+        padding-top: 2rem;
+
+        .table {
+            background-color: $white;
+            border: 1px solid darken($white, 10%);
+        }
+    }
+}
