@@ -17,7 +17,7 @@ $api->version('v1', function ($api) {
     header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
     header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, PATCH, DELETE');
 
-    $api->group(['namespace' => 'App\Http\Controllers\Api'], function ($api) {
+    $api->group(['namespace' => 'Pickems\Http\Controllers\Api'], function ($api) {
         // Auth
         $api->post('auth/login', 'Auth\AuthController@postLogin');
         $api->post('auth/token-refresh', 'Auth\AuthController@refreshToken');
@@ -25,7 +25,12 @@ $api->version('v1', function ($api) {
 
         // Protected methods (require auth)
         $api->group(['middleware' => 'api.auth'], function ($api) {
+            $api->get('users', 'UsersController@list');
+            $api->get('users/{users}', 'UsersController@show');
 
+            $api->get('teams', 'TeamsController@list');
+            $api->get('teams/{teams}', 'TeamsController@show');
+            $api->post('teams', 'TeamsController@store');
         });
 
         // Public methods

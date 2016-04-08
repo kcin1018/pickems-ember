@@ -11,11 +11,22 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(Pickems\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+        'is_admin' => $faker->boolean,
+    ];
+});
+
+$factory->define(Pickems\Team::class, function (Faker\Generator $faker) {
+    $name = $faker->company;
+
+    return [
+        'name' => $name,
+        'slug' => str_slug($name),
+        'paid' => $faker->boolean,
     ];
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Providers;
+namespace Pickems\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Dingo\Api\Transformer\Adapter\Fractal;

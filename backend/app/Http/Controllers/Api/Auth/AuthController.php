@@ -1,11 +1,11 @@
 <?php
 
-namespace app\Http\Controllers\Api\Auth;
+namespace Pickems\Http\Controllers\Api\Auth;
 
-use App\User;
+use Pickems\User;
 use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Helpers;
-use App\Http\Controllers\Controller;
+use Pickems\Http\Controllers\Controller;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -30,8 +30,13 @@ class AuthController extends Controller
             throw new HttpException('Unable to login');
         }
 
+        $user = \JWTAuth::toUser($token);
+
         // all good so return the token
-        return $this->response->array(compact('token'));
+        return $this->response->array([
+            'token' => $token,
+            'user_id' => $user->id,
+        ]);
     }
 
     public function refreshToken(Request $request)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Pickems\Events;
 
 abstract class Event
 {

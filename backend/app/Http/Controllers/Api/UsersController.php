@@ -1,17 +1,27 @@
 <?php
 
-namespace app\Http\Controllers\Api;
+namespace Pickems\Http\Controllers\Api;
 
-use App\User;
+use Pickems\User;
 use Dingo\Api\Http\Request;
 use Dingo\Api\Routing\Helpers;
-use App\Http\Controllers\Controller;
-use App\Transformers\UserTransformer;
+use Pickems\Http\Controllers\Controller;
+use Pickems\Transformers\UserTransformer;
 use Dingo\Api\Exception\StoreResourceFailedException;
 
 class UsersController extends Controller
 {
     use Helpers;
+
+    public function list()
+    {
+        return $this->response->collection(User::all(), new UserTransformer(), ['key' => 'users']);
+    }
+
+    public function show(User $users)
+    {
+        return $this->response->item($users, new UserTransformer(), ['key' => 'users']);
+    }
 
     public function store(Request $request)
     {

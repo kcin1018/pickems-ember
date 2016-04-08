@@ -5,10 +5,16 @@ const { inject: { service } } = Ember;
 
 export default Ember.Route.extend(ApplicationRouteMixin, {
   session: service(),
+  currentUser: service(),
 
-  actions: {
-    invalidateSession() {
-      this.get('session').invalidate();
-    }
+  beforeModel() {
+    return this._loadCurrentUser();
+  },
+  sessionAuthenticated() {
+    this._super(...arguments);
+    this._loadCurrentUser().catch(() => this.get('session').invalidate());
+  },
+  _loadCurrentUser() {
+    return this.get('currentUser').loadCurrentUser();
   }
 });

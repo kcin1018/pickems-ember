@@ -1,1 +1,59 @@
-{{outlet}}
+<div class="teams">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 text-xs-center text-sm-left">
+                <h1>Teams</h1>
+            </div>
+            <div class="col-xs-12 col-sm-6 text-xs-center text-sm-right">
+                <button class="btn btn-secondary" {{action 'toggleCreateTeam'}}>{{fa-icon 'plus'}} Create Team</button>
+            </div>
+        </div>
+        {{#if showCreateTeam}}
+        <div class="row">
+            <div class="col-xs-12">
+                <br/><br/>
+                <div class="row">
+                    <div class="col-xs-12">
+                            <div class="form-group {{if currentUser.user.is_admin 'col-md-6' 'col-md-12'}}">
+                                {{input class="form-control" value=newTeam.name placeholder="Team name"}}
+                            </div>
+
+                            {{#if currentUser.user.is_admin}}
+                            <div class="form-group col-md-6">
+                                {{#power-select class="form-control" options=users searchField="name" placeholder="Select an owner" selected=newTeam.user onchange=(action (mut newTeam.user)) as |user|}}
+                                    {{user.name}}
+                                {{/power-select}}
+                            </div>
+                            {{/if}}
+
+                            <div class="form-group col-xs-12 text-xs-center text-md-right">
+                                <button class="btn btn-primary" {{action 'createTeam'}}>Create Team</button>
+                                <button class="btn btn-secondary" {{action 'toggleCreateTeam'}}>Cancel</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+        <hr/>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-sm-offset-6 col-md-4 col-md-offset-8">
+                <div class="input-group">
+                    <div class="input-group-addon">{{fa-icon 'search'}}</div>
+                    {{input class='form-control' value=filter placeholder='Filter'}}
+                    <div class="input-group-addon clear-filter" {{action 'clearFilter'}}>{{fa-icon 'remove'}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">&nbsp;</div>
+        </div>
+        <div class="row">
+            {{#each teams as |team|}}
+                {{team-card team=team users=users markPaid='markPaid' removeTeam='removeTeam' updateTeam='updateTeam'}}
+            {{else}}
+            <h1 class="text-xs-center">No Teams found...</h1>
+            {{/each}}
+        </div>
+    </div>
+</div>

@@ -1,9 +1,9 @@
 <?php
 
-namespace app\Http\Controllers\Api;
+namespace Pickems\Http\Controllers\Api;
 
 use Dingo\Api\Routing\Helpers;
-use App\Http\Controllers\Controller;
+use Pickems\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Config;
 
 class GeneralController extends Controller

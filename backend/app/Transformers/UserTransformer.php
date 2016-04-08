@@ -1,8 +1,8 @@
 <?php
 
-namespace app\Transformers;
+namespace Pickems\Transformers;
 
-use App\User;
+use Pickems\User;
 use League\Fractal;
 
 class UserTransformer extends Fractal\TransformerAbstract
@@ -13,7 +13,7 @@ class UserTransformer extends Fractal\TransformerAbstract
             'id' => (int) $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'is_admin' => (bool) $user->is_admin,
+            'is-admin' => (bool) $user->is_admin,
         ];
     }
 }

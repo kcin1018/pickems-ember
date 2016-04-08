@@ -151,10 +151,10 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Pickems\Providers\AppServiceProvider::class,
+        Pickems\Providers\AuthServiceProvider::class,
+        Pickems\Providers\EventServiceProvider::class,
+        Pickems\Providers\RouteServiceProvider::class,
 
         Dingo\Api\Provider\LaravelServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
