@@ -6,15 +6,6 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
-    paypalAddress: 'mrimler@gmail.com',
-    flashMessageDefaults: {
-      // flash message defaults
-      timeout: 5000,
-      extendedTimeout: 0,
-      priority: 200,
-      sticky: true,
-      showProgress: true,
-    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -34,15 +25,6 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.api = {
-      host: 'http://localhost:8000',
-      namespace: 'api/v1',
-      authEndpoint: 'auth'
-    };
-
-    ENV['ember-cli-mirage'] = {
-      enabled: false
-    };
   }
 
   if (environment === 'test') {
@@ -55,12 +37,6 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
-
-    ENV.api = {
-      host: 'http://localhost:8000',
-      namespace: 'api/v1',
-      authEndpoint: 'auth'
-    };
   }
 
   if (environment === 'production') {

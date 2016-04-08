@@ -1,5 +1,7 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# Created by https://www.gitignore.io/api/ember,laravel,sublimetext
 
+### Ember ###
+# see https://github.com/ember-cli/ember-cli/blob/master/blueprints/app/files/gitignore
 # compiled output
 /dist
 /tmp
@@ -15,3 +17,32 @@
 /libpeerconnection.log
 npm-debug.log
 testem.log
+
+### Laravel ###
+vendor/
+node_modules/
+
+# Laravel 5 & Lumen specific
+bootstrap/cache/
+.env.*.php
+.env.php
+.env
+
+# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
+.rocketeer/
+
+### SublimeText ###
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+
+# workspace files are user-specific
+*.sublime-workspace
+
+# project files should be checked into the repository, unless a significant
+# proportion of contributors will probably not be using SublimeText
+# *.sublime-project
+
+# sftp configuration file
+sftp-config.json
