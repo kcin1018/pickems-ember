@@ -5,18 +5,6 @@ const { inject: { service }, computed, isEmpty } = Ember;
 
 export default Ember.Route.extend(UnauthenticatedRouteMixin, {
   flashMessages: service(),
-
-  setupController(controller) {
-    controller.set('errors', {});
-    controller.set('registrantData', {});
-    controller.set('submitBtnText', 'Create an Account');
-    controller.set('submitDisabled', computed('submitBtnText', {
-      get() {
-        return (this.get('submitBtnText') === 'Create an Account') ? false : true;
-      }
-    }));
-  },
-
   actions: {
     createAccount() {
       this.get('flashMessages').clearMessages();
