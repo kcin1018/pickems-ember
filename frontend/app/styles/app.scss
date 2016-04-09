@@ -35,6 +35,10 @@ body {
     background-color: darken($white, 5%);
 }
 
+input {
+    background-color: darken($white, 2%) !important;
+}
+
 .alert {
     text-align: center;
 }

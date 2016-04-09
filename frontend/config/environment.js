@@ -6,6 +6,7 @@ module.exports = function(environment) {
     podModulePrefix: 'pickems/features',
     environment: environment,
     baseURL: '/',
+    paypalAddress: 'rimlerm@gmail.com',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {

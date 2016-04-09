@@ -29,8 +29,10 @@ $api->version('v1', function ($api) {
             $api->get('users/{users}', 'UsersController@show');
 
             $api->get('teams', 'TeamsController@list');
-            $api->get('teams/{teams}', 'TeamsController@show');
             $api->post('teams', 'TeamsController@store');
+            $api->get('teams/{teams}', 'TeamsController@show');
+            $api->patch('teams/{teams}', 'TeamsController@update');
+            $api->delete('teams/{teams}', 'TeamsController@destroy');
         });
 
         // Public methods

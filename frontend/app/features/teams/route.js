@@ -14,24 +14,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
   setupController(controller) {
     this._super(...arguments);
-
-    controller.set('currentUser', service('current-user'));
-    controller.set('filter', null);
-    controller.set('isAdmin', this.get('currentUser.user.is_admin'));
-    controller.set('users', computed.sort('model.users', (a, b) => a.get('name') > b.get('name') ? 1 : -1));
-    controller.set('teams', computed('model.teams', 'filter', {
-      get() {
-        let filter = this.get('filter');
-        if (filter) {
-          filter = filter.toLowerCase();
-          return this.get('model.teams').filter((team) => {
-            return team.get('name').toLowerCase().indexOf(filter) > -1 || team.get('user.name').toLowerCase().indexOf(filter) > -1;
-          });
-        }
-
-        return this.get('model.teams');
-      }
-    }));
   },
   actions: {
     clearFilter() {
@@ -67,6 +49,33 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
           this.get('flashMessages').danger('Could not create team');
         }
         team.destroyRecord();
+      });
+    },
+    removeTeam(team) {
+      if (confirm('Are you sure you want to delete this team?')) {
+        let teamName = team.get('name');
+        team.destroyRecord().then(() => {
+          this.get('flashMessages').clearMessages();
+          this.get('flashMessages').success(`Team '${teamName}' deleted`);
+        });
+      }
+    },
+    updateTeam(team) {
+      this.get('flashMessages').clearMessages();
+
+      // re-generate the slug
+      team.set('slug', stringSlugify([team.get('name')]));
+
+      team.save().then(() => {
+        this.get('flashMessages').success('Team information saved');
+        this.controller.set('isEditing', false);
+      });
+    },
+    markPaid(team) {
+      team.paid = true;
+      team.save().then(() => {
+        this.get('flashMessages').clearMessages();
+        this.get('flashMessages').success(`Team '${team.get('name')}' marked as paid`);
       });
     },
   }
